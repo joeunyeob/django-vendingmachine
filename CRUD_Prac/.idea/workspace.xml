@@ -152,6 +152,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -304,7 +305,8 @@
       <workItem from="1562823731562" duration="478000" />
       <workItem from="1562825707368" duration="3128000" />
       <workItem from="1562836727212" duration="202000" />
-      <workItem from="1568791224366" duration="768000" />
+      <workItem from="1568791224366" duration="1362000" />
+      <workItem from="1568893653565" duration="836000" />
     </task>
     <servers />
   </component>
