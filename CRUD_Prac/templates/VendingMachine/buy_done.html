@@ -1,0 +1,9 @@
+{% extends 'VendingMachine/base.html' %}
+
+{% block content %}
+
+    <h3> 음료의 총 가격은<strong> {{ value }} </strong>원 입니다.</h3>
+
+    <input type="button" class="btn btn-sm btn-primary" value="Done"
+           onClick="location.href='http://localhost:8000/VendingMachine/'">
+{% endblock %}
