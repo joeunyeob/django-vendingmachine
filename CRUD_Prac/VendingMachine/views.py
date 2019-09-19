@@ -62,13 +62,13 @@ def buy(request, id, count):
 
     # 문자 푸시 부분
     # if 0 <= beverages.count <= 10:
-    #     account_sid = 'AC8561b9d314199b0547eb80483bd80206'
-    #     auth_token = '4f06258189e62b29b6d4d30b079287d1'
+    #     account_sid =   # apikey 부분삭제
+    #     auth_token =      # apikey 부분삭제
     #     client = Client(account_sid, auth_token)
     #
     #     client.messages.create(
-    #         to="+8201082413755",
-    #         from_="+1 863 588 2011",  # twilio에서 발급받은 미국 전화번호
+    #         to=      # 개인전화번호 부분 삭제
+    #         from_= # twilio에서 발급받은 미국 전화번호부분 삭제
     #         body=beverages.title + '의 수량이 10개 이하입니다. 현재수량은' + str(beverages.count) + '개 입니다.'
     #     )
 
