@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>롯데가즈아!</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js"></script>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'VendingMachine/css/bootstrap.css' %}"/>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid" align="center">
+        <a class="navbar-brand" href="http://localhost:8000/VendingMachine/">Home</a> {# 네이게이션바 클릭하면 url로 이동 #}
+        <a class="navbar-brand" href="https://www.ldcc.co.kr/">Lotte</a>
+        <a class="navbar-brand" href="http://localhost:8000/admin/">Admin Page</a>
+        <div class="col-md-3"></div>
+        {% if user.is_active %}  {# 유저가 활성화 되었을 경우에만 #}
+            <h4 class="welcome" align="center">Welcome,
+                <strong>{% firstof user.get_short_name user.get_username %}</strong></h4>
+            <a href="{% url 'password_change' %}">Change Password</a>
+            <a href="{% url 'logout' %}">Logout</a>
+            <form class="form-inline" method="POST" align="center">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="title">종류</label>
+                    <select id="beverageTitle" name="beverage">
+                        {% for beverage_list in beverages_list %}
+                            <option value="{{ beverage_list.title }}">{{ beverage_list.title }}</option>
+                        {% endfor %}
+                    </select>
+                    <input id="buyCount" type="number" value="1" min="0" max="10000">
+                    <button class="btn btn-sm btn-primary" onclick="buy()" type="button"> Buy</button>
+                    {% if user.is_superuser %}
+                        <input type="button" class="btn btn-sm btn-primary" value="Charts"
+                               onClick="location.href='http://localhost:8000/VendingMachine/charts/'">
+                    {% endif %}
+                    {#                    <input type="button" class="btn btn-sm btn-primary" value="Create"#}
+                    {#                           onClick="location.href='http://localhost:8000/VendingMachine/create/'">#}
+                    </center>
+                </div>
+            </form>
+        {% else %}
+            <h4 class="welcome">Welcome, Beverage
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
+            </h4>
+        {% endif %}
+        <div class="container">
+            <h3 class="text-primary" align="center">Hello, This is Beverage VendingMachine </h3>
+            <hr style="border-top:1px dotted #000;"/>
+            {% block content %}
+            {% endblock %}
+        </div>
+
+    </div>
+</nav>
+<div align="center">
+    <span>
+        {% if is_paginated %}
+            <nav>
+    <ul class="pagination">
+      {% if page_obj.has_previous %}
+          <li>
+          <a href="?page={{ page_obj.previous_page_number }}">
+            <span>Prev</span>
+          </a>
+        </li>
+      {% else %}
+          <li class="disabled">
+          <a href="#">
+            <span>Previous</span>
+          </a>
+        </li>
+      {% endif %}
+
+        {% for page in paginator.page_range %}
+            <li {% if page == page_obj.number %}class="active"{% endif %}>
+          <a href="?page={{ page }}">{{ page }}</a>
+        </li>
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li>
+          <a href="?page={{ page_obj.next_page_number }}">
+            <span>Next</span>
+          </a>
+        </li>
+        {% else %}
+            <li {% if not page_obj.has_next %}class="disabled"{% endif %}>
+          <a href="#">
+            <span>Next</span>
+          </a>
+        </li>
+        {% endif %}
+    </ul>
+  </nav>
+        {% endif %}
+    </span>
+
+</div>
+{% if message %}
+    <script>
+        alert('{{ message }}');
+    </script>
+{% endif %}
+</body>
+<script type="text/javascript">
+    var temp;
+
+    function buy() {
+
+        var input = document.getElementById("buyCount").value;
+        var input2 = document.getElementById("beverageTitle").value;
+
+
+        var bever;
+
+        {% for beverages in beverages_list %}
+            {#var bever = {{ beverages.title }};#}
+
+            if (`{{ beverages.title }}` === input2) {
+                bever = {{ beverages.id }};
+
+            }
+        {% endfor %}
+
+
+        window.location.href = 'buy/' + bever + '/' + input;
+    }
+
+</script>
+</html>
+

@@ -1,0 +1,91 @@
+{% extends 'VendingMachine/base.html' %}
+{% block content %}
+<canvas id="myChart" width="1000" height="600"></canvas>
+
+    <script>
+        var ctx = document.getElementById("myChart");
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    {% for item in labels %}
+                    "{{ item.title }}",
+                 {% endfor %}
+                ],
+                datasets: [{
+                    label: ' 음료의 수',
+                    data: [
+                    {% for item in values %}
+                    "{{ item.count }}",
+                 {% endfor %}
+                ],
+                    backgroundColor: [
+                        'rgba(255,99,132,0.2)',
+                        'rgba(54, 162, 235,0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255,99,132,0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 102, 255, 0.2)',
+                        'rgba(54, 102, 255, 0.2)',
+                        'rgba(54, 162, 64, 0.2)',
+                        'rgba(54, 102, 64, 0.2)',
+                        'rgba(54, 64, 162, 0.2)',
+                        'rgba(75, 77, 99, 0.2)',
+                        'rgba(88, 102, 77, 0.2)',
+                        'rgba(255, 132, 86, 0.2)',
+                        'rgba(90, 12, 45, 0.2)',
+                        'rgba(153, 102, 40, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255, 102, 255, 1)',
+                        'rgba(54, 102, 255, 1)',
+                        'rgba(54, 162, 64, 1)',
+                        'rgba(54, 102, 64, 1)',
+                        'rgba(54, 64, 162, 1)',
+                        'rgba(75, 77, 99, 1)',
+                        'rgba(88, 102, 77, 1)',
+                        'rgba(255, 132, 86, 1)',
+                        'rgba(90, 12, 45, 1)',
+                        'rgba(153, 102, 40, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            maxRotation: 90,
+                            minRotation: 80
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+{% endblock %}

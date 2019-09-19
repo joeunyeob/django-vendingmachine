@@ -1,0 +1,68 @@
+{% extends 'VendingMachine/base.html' %}
+{% block content %}
+    <br/>
+    <table class="table table-bordered" align="center">
+        <thead class="alert-warning">
+        <tr>
+            <th>Title</th>
+            <th>Photo</th>
+            <th>Price</th>
+            <th>Count</th>
+            {% if user.is_superuser %}
+                <th>Action</th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for beverages in beverages_list %}
+            <tr>
+                <td>{{ beverages.title }}</td>
+                <td><img src="../../static/images/{{ beverages.photo }}" width="30" height="50"/></td>
+                <td>{{ beverages.price }}</td>
+                <td>{{ beverages.count }}</td>
+                {% if user.is_superuser %}
+                    <td>
+
+                        <a class="btn btn-sm btn-warning" href="edit/{{ beverages.id }}"><span
+                                class="glyphicon glyphicon-edit"></span> Edit</a>
+                        <a class="btn btn-sm btn-danger" onclick="return confirm('are you sure?')"
+                           href="delete/{{ beverages.id }}">
+                            <span class="glyphicon glyphicon-trash"></span> Delete</a>
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination" align="center">
+        {% if beverages_list.has_previous %}
+
+            <a href="?page=1"><<<</a>
+            <a href="?page={{ beverages_list.previous_page_number }}"><</a>
+
+        {% endif %}
+
+        {% for num in beverages_list.paginator.page_range %}
+
+            {% if beverages_list.number == num %}
+
+                <strong>{{ num }}</strong>
+
+            {% elif num > beverages_list.number|add:'-3' and num < beverages_list.number|add:'3' %}
+
+                {{ num }}
+
+            {% endif %}
+
+        {% endfor %}
+
+        {% if beverages_list.has_next %}
+
+            <a href="?page={{ beverages_list.next_page_number }}">></a>
+            <a href="?page={{ beverages_list.paginator.num_pages }}">>>></a>
+
+        {% endif %}
+    </div>
+
+
+{% endblock %}
